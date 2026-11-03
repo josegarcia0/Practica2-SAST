@@ -1,5 +1,15 @@
-// Ejemplo de código inseguro en app.js
-const usuario = req.query.username;
+const express = require("express");
+const app = express();
 
-// Vulnerabilidad: Inyección de código mediante eval()
-eval("console.log('Usuario conectado: ' + " + usuario + ");");
+app.get("/usuario", (req, res) => {
+
+    // Entrada controlada por el usuario
+    const usuario = req.query.username;
+
+    // Vulnerabilidad intencional: Code Injection
+    eval(usuario);
+
+    res.send("Usuario procesado");
+});
+
+app.listen(3000);
